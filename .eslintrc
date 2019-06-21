@@ -1,0 +1,18 @@
+{
+  "extends": ["airbnb", "prettier"],
+  "parser": "babel-eslint",
+  "env": {
+    "node": true,
+    "es6": true,
+    "browser": true,
+    "jest": true
+  },
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "import/prefer-default-export": 0,
+    "no-multi-spaces": "error",
+    "no-console": "warn",
+    "camelcase": 0,
+    "class-methods-use-this": 0
+  }
+}
