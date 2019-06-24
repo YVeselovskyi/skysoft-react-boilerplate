@@ -1,68 +1,213 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Create React App Skysoft's boilerplate.
 
-## Available Scripts
+## Navigation
+### Project config
+- [.env file](#env)
+- [routes config](#routes)
+- [axios config](#axios)
+- [axios interceptors](#interceptors)
+### Project 
+- [project structure](#project)
+- [build project](#build)
+- [deploy application](#deploy)
+---
+## <a name="env"></a>.env file
+```
+NODE_PATH=Same as NODE_PATH in Node.js, but only relative folders are allowed. Can be handy for emulating a monorepo setup by setting.
 
-In the project directory, you can run:
+PROXY=By default, the development web server will attempt to listen on port 3000 or prompt you to attempt the next available port.
 
-### `npm start`
+HTTPS=When set to true, Create React App will run the development server in https mode.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+PUBLIC_URL=Create React App assumes your application is hosted at the serving web server's root or a subpath as specified in package.json (homepage).
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+```
+[For more information read docs.](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### `npm test`
+## <a name="routes"></a>Routes config
+```javascript
+const routes = {
+  home: '/', // Home component.
+  cars: '/cars', // All cars component.
+  car: { // Specific car.
+    red: '/car/red', // like red car.
+    green: '/car/green', // like green car.
+  },
+  otherCar: '/car/:id', // other cars.
+};
+```
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## <a name="axios"></a>Axios config.
 
-### `npm run build`
+```javascript
+axios.create({
+  // `url` is the server URL that will be used for the request
+  url: '/user',
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  // `baseURL` will be prepended to `url` unless `url` is absolute.
+  // It can be convenient to set `baseURL` for an instance of axios to pass relative URLs
+  // to methods of that instance.
+  baseURL: 'https://some-domain.com/api/',
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+  // `transformRequest` allows changes to the request data before it is sent to the server
+  // This is only applicable for request methods 'PUT', 'POST', 'PATCH' and 'DELETE'
+  // The last function in the array must return a string or an instance of Buffer, ArrayBuffer,
+  // FormData or Stream
+  // You may modify the headers object.
+  transformRequest: [function (data, headers) {
+    // Do whatever you want to transform the data
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    return data;
+  }],
 
-### `npm run eject`
+  // `transformResponse` allows changes to the response data to be made before
+  // it is passed to then/catch
+  transformResponse: [function (data) {
+    // Do whatever you want to transform the data
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+    return data;
+  }],
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  // `headers` are custom headers to be sent
+  headers: {'X-Requested-With': 'XMLHttpRequest'},
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+  // `params` are the URL parameters to be sent with the request
+  // Must be a plain object or a URLSearchParams object
+  params: {
+    ID: 12345
+  },
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+  // `paramsSerializer` is an optional function in charge of serializing `params`
+  // (e.g. https://www.npmjs.com/package/qs, http://api.jquery.com/jquery.param/)
+  paramsSerializer: function (params) {
+    return Qs.stringify(params, {arrayFormat: 'brackets'})
+  },
 
-## Learn More
+  // `timeout` specifies the number of milliseconds before the request times out.
+  // If the request takes longer than `timeout`, the request will be aborted.
+  timeout: 1000, // default is `0` (no timeout)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  // `withCredentials` indicates whether or not cross-site Access-Control requests
+  // should be made using credentials
+  withCredentials: false, // default
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  // `adapter` allows custom handling of requests which makes testing easier.
+  // Return a promise and supply a valid response (see lib/adapters/README.md).
+  adapter: function (config) {
+    /* ... */
+  },
 
-### Code Splitting
+  // `auth` indicates that HTTP Basic auth should be used, and supplies credentials.
+  // This will set an `Authorization` header, overwriting any existing
+  // `Authorization` custom headers you have set using `headers`.
+  // Please note that only HTTP Basic auth is configurable through this parameter.
+  // For Bearer tokens and such, use `Authorization` custom headers instead.
+  auth: {
+    username: 'janedoe',
+    password: 's00pers3cret'
+  },
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+  // `responseType` indicates the type of data that the server will respond with
+  // options are: 'arraybuffer', 'document', 'json', 'text', 'stream'
+  //   browser only: 'blob'
+  responseType: 'json', // default
 
-### Analyzing the Bundle Size
+  // `responseEncoding` indicates encoding to use for decoding responses
+  // Note: Ignored for `responseType` of 'stream' or client-side requests
+  responseEncoding: 'utf8', // default
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+  // `xsrfCookieName` is the name of the cookie to use as a value for xsrf token
+  xsrfCookieName: 'XSRF-TOKEN', // default
 
-### Making a Progressive Web App
+  // `xsrfHeaderName` is the name of the http header that carries the xsrf token value
+  xsrfHeaderName: 'X-XSRF-TOKEN', // default
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+  // `onUploadProgress` allows handling of progress events for uploads
+  onUploadProgress: function (progressEvent) {
+    // Do whatever you want with the native progress event
+  },
 
-### Advanced Configuration
+  // `onDownloadProgress` allows handling of progress events for downloads
+  onDownloadProgress: function (progressEvent) {
+    // Do whatever you want with the native progress event
+  },
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+  // `maxContentLength` defines the max size of the http response content in bytes allowed
+  maxContentLength: 2000,
 
-### Deployment
+  // `validateStatus` defines whether to resolve or reject the promise for a given
+  // HTTP response status code. If `validateStatus` returns `true` (or is set to `null`
+  // or `undefined`), the promise will be resolved; otherwise, the promise will be
+  // rejected.
+  validateStatus: function (status) {
+    return status >= 200 && status < 300; // default
+  },
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+  // `maxRedirects` defines the maximum number of redirects to follow in node.js.
+  // If set to 0, no redirects will be followed.
+  maxRedirects: 5, // default
 
-### `npm run build` fails to minify
+  // `socketPath` defines a UNIX Socket to be used in node.js.
+  // e.g. '/var/run/docker.sock' to send requests to the docker daemon.
+  // Only either `socketPath` or `proxy` can be specified.
+  // If both are specified, `socketPath` is used.
+  socketPath: null, // default
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+  // `httpAgent` and `httpsAgent` define a custom agent to be used when performing http
+  // and https requests, respectively, in node.js. This allows options to be added like
+  // `keepAlive` that are not enabled by default.
+  httpAgent: new http.Agent({ keepAlive: true }),
+  httpsAgent: new https.Agent({ keepAlive: true }),
+
+  // 'proxy' defines the hostname and port of the proxy server.
+  // You can also define your proxy using the conventional `http_proxy` and
+  // `https_proxy` environment variables. If you are using environment variables
+  // for your proxy configuration, you can also define a `no_proxy` environment
+  // variable as a comma-separated list of domains that should not be proxied.
+  // Use `false` to disable proxies, ignoring environment variables.
+  // `auth` indicates that HTTP Basic auth should be used to connect to the proxy, and
+  // supplies credentials.
+  // This will set an `Proxy-Authorization` header, overwriting any existing
+  // `Proxy-Authorization` custom headers you have set using `headers`.
+  proxy: {
+    host: '127.0.0.1',
+    port: 9000,
+    auth: {
+      username: 'mikeymike',
+      password: 'rapunz3l'
+    }
+  },
+
+  // `cancelToken` specifies a cancel token that can be used to cancel the request
+  // (see Cancellation section below for details)
+  cancelToken: new CancelToken(function (cancel) {
+  })
+})
+```
+
+## <a name="interceptors"></a>Axios interceptors
+```javascript
+axios.interceptors.request.use(function (config) {
+    // Do something before request is sent
+    return config;
+  }, function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+  });
+
+// Add a response interceptor
+axios.interceptors.response.use(function (response) {
+    // Do something with response data
+    return response;
+  }, function (error) {
+    // Do something with response error
+    return Promise.reject(error);
+  });
+```
+## For more details about axios [Read this](https://github.com/axios/axios)
+
+## <a name="project"></a>Project structure
+
+## <a name="build"></a>Build project
+
+## <a name="deploy"></a>Deploy project
