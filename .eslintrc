@@ -31,6 +31,14 @@
     "no-console": "warn",
     "camelcase": 0,
     "class-methods-use-this": 0,
-    "import/no-unresolved": [".jsx", ".js"]
+    "import/no-unresolved": [".jsx", ".js"],
+    "react/prop-types": false,
+    "react/self-closing-comp": [
+      "error",
+      {
+        "component": true,
+        "html": false
+      }
+    ]
   }
 }

@@ -2,9 +2,11 @@ import React from 'react';
 
 import { Navigation } from 'components';
 
-export const Home = () => (
+const Cars = () => (
   <React.Fragment>
     <Navigation />
-    <div>This is a Home component</div>
+    <div>Cars</div>
   </React.Fragment>
 );
+
+export default Cars;
