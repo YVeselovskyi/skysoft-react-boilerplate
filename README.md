@@ -13,8 +13,6 @@
 ---
 ## <a name="env"></a>.env file
 ```
-NODE_PATH=Same as NODE_PATH in Node.js, but only relative folders are allowed. Can be handy for emulating a monorepo setup by setting.
-
 PROXY=By default, the development web server will attempt to listen on port 3000 or prompt you to attempt the next available port.
 
 HTTPS=When set to true, Create React App will run the development server in https mode.
@@ -204,10 +202,51 @@ axios.interceptors.response.use(function (response) {
     return Promise.reject(error);
   });
 ```
-## For more details about axios [Read this](https://github.com/axios/axios)
+## For more details about axios [Read this](https://github.com/axios/axios).
 
-## <a name="project"></a>Project structure
+## <a name="project"></a>Project structure.
 
-## <a name="build"></a>Build project
+## <a name="build"></a>Creating a Production Build.
 
-## <a name="deploy"></a>Deploy project
+```npm run``` build creates a ```build``` directory with a production build of your app. Inside the ```build/static``` directory will be your JavaScript and CSS files. Each filename inside of ```build/static``` will contain a unique hash of the file contents. This hash in the file name enables [long term caching techniques](#static).
+
+When running a production build of freshly created Create React App application, there are a number of ```.js``` files (called chunks) that are generated and placed in the ```build/static/js``` directory:
+
+```main.[hash].chunk.js```
+
+- This is your application code. ```App.js```, etc.
+
+```[number].[hash].chunk.js```
+
+- These files can either be vendor code, or [code splitting chunks](https://facebook.github.io/create-react-app/docs/code-splitting). Vendor code includes modules that you've imported from within node_modules. One of the potential advantages with splitting your vendor and application code is to enable [long term caching techniques](https://facebook.github.io/create-react-app/docs/production-build#static-file-caching) to improve application loading performance. Since vendor code tends to change less often than the actual application code, the browser will be able to cache them separately, and won't re-download them each time the app code changes.
+
+```runtime~main.[hash].js```
+
+- This is a small chunk of [webpack runtime](https://webpack.js.org/configuration/optimization/#optimization-runtimechunk) logic which is used to load and run your application. The contents of this will be embedded in your ```build/index.html``` file by default to save an additional network request. You can opt out of this by specifying ```INLINE_RUNTIME_CHUNK=false``` as documented in our [advanced configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration), which will load this chunk instead of embedding it in your ```index.html```.
+
+If you're using [code splitting](https://facebook.github.io/create-react-app/docs/code-splitting) to split up your application, this will create additional chunks in the ```build/static``` folder as well.
+
+## <a name="static"></a>Static File Caching
+
+Each file inside of the ```build/static``` directory will have a unique hash appended to the filename that is generated based on the contents of the file, which allows you to use [aggressive caching techniques](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching#invalidating_and_updating_cached_responses) to avoid the browser re-downloading your assets if the file contents haven't changed. If the contents of a file changes in a subsequent build, the filename hash that is generated will be different.
+
+To deliver the best performance to your users, it's best practice to specify a ```Cache-Control``` header for ```index.html```, as well as the files within ```build/static```. This header allows you to control the length of time that the browser as well as CDNs will cache your static assets. If you aren't familiar with what ```Cache-Control``` does, see [this article](https://jakearchibald.com/2016/caching-best-practices/) for a great introduction.
+
+Using ```Cache-Control: max-age=31536000``` for your ```build/static assets```, and ```Cache-Control: no-cache``` for everything else is a safe and effective starting point that ensures your user's browser will always check for an updated ```index.html``` file, and will cache all of the ```build/static``` files for one year. Note that you can use the one year expiration on ```build/static``` safely because the file contents hash is embedded into the filename.
+
+## <a name="deploy"></a>Deployment.
+
+```npm run build``` creates a build directory with a production build of your app. Set up your favorite HTTP server so that a visitor to your site is served ```index.html```, and requests to static paths like ```/static/js/main.<hash>.js``` are served with the contents of the ```/static/js/main.<hash>.js``` file. For more information see the [production build](#build) section.
+
+## AWS Amplify.
+
+The AWS Amplify Console provides continuous deployment and hosting for modern web apps (single page apps and static site generators) with serverless backends. The Amplify Console offers globally available CDNs, easy custom domain setup, feature branch deployments, and password protection.
+
+- Login to the Amplify Console [here](https://console.aws.amazon.com/amplify/home).
+- Connect your Create React App repo and pick a branch. If you're looking for a Create React App+Amplify starter, try the [create-react-app-auth-amplify starter](https://github.com/swaminator/create-react-app-auth-amplify) that demonstrates setting up auth in 10 minutes with Create React App.
+- The Amplify Console automatically detects the build settings. Choose Next.
+- Choose Save and deploy.
+
+If the build succeeds, the app is deployed and hosted on a global CDN with an amplifyapp.com domain. You can now continuously deploy changes to your frontend or backend. Continuous deployment allows developers to deploy updates to their frontend and backend on every code commit to their Git repository.
+
+More information about deploy you can read on this [page](https://facebook.github.io/create-react-app/docs/deployment#aws-amplify-http-consoleamplifyaws)
