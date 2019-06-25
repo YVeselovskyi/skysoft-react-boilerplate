@@ -1,0 +1,1 @@
+export { getHome } from './api';

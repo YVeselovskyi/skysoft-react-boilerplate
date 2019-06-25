@@ -24,3 +24,14 @@ yarn-error.log*
 
 # IDE
 .idea
+.vscode
+
+# ignore lock files
+package-lock.json
+yarn.lock
+
+# env config file.
+# If you need specified enviroments only for develop purpuse use .env.development.
+# If you need specified enviroments only for production purpuse use .env.production.
+# If you need specified enviroments for both of it use env file.
+.env
