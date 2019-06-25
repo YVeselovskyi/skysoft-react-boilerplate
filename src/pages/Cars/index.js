@@ -1,4 +1,4 @@
-export { default as Cars } from './Cars';
-export { default as RedCar } from './ChildComponents/RedCar';
-export { default as GreenCar } from './ChildComponents/GreenCar';
-export { default as OtherCar } from './ChildComponents/OtherCar';
+export { Cars } from './Cars';
+export { RedCar } from './ChildComponents/RedCar';
+export { GreenCar } from './ChildComponents/GreenCar';
+export { AnotherCar } from './ChildComponents/AnotherCar';

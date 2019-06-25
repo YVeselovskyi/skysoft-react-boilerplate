@@ -1,4 +1,4 @@
-const routes = {
+export const routes = {
   home: '/',
   cars: '/cars',
   car: {
@@ -7,5 +7,3 @@ const routes = {
   },
   otherCar: '/car/:id',
 };
-
-export default routes;

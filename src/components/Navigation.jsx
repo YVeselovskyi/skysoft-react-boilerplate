@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { routes } from 'config';
 
-const Navigation = () => (
+export const Navigation = () => (
   <ul>
     <li>
       <Link to={routes.home}>Home</Link>
@@ -30,5 +30,3 @@ const Navigation = () => (
     </li>
   </ul>
 );
-
-export default Navigation;

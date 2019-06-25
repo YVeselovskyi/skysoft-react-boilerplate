@@ -1,1 +1,1 @@
-export { default as uuid } from './uuid';
+export { uuid } from './uuid';

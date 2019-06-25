@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 
 import { Navigation } from 'components';
 
-const OtherCarWithRouter = ({
+const AnotherCarComponent = ({
   match: {
     params: { id },
   },
@@ -14,6 +14,4 @@ const OtherCarWithRouter = ({
   </div>
 );
 
-const OtherCar = withRouter(OtherCarWithRouter);
-
-export default OtherCar;
+export const AnotherCar = withRouter(AnotherCarComponent);

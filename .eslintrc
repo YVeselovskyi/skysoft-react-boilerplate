@@ -27,6 +27,7 @@
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "import/prefer-default-export": 0,
+    "import/no-default-export": "error",
     "no-multi-spaces": "error",
     "no-console": "warn",
     "camelcase": 0,

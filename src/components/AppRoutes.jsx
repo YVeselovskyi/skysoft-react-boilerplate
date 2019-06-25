@@ -7,7 +7,7 @@ import { NotFound } from 'components';
 
 import { routes } from 'config';
 
-const AppRoutes = () => (
+export const AppRoutes = () => (
   <Switch>
     <Route exact path={routes.home} component={Home} />
     <Route exact path={routes.cars} component={Cars} />
@@ -17,5 +17,3 @@ const AppRoutes = () => (
     <Route component={NotFound} />
   </Switch>
 );
-
-export default AppRoutes;

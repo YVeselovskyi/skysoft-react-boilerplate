@@ -1,3 +1,3 @@
-export { default as AppRoutes } from './AppRoutes';
-export { default as NotFound } from './NotFound';
-export { default as Navigation } from './Navigation';
+export { AppRoutes } from './AppRoutes';
+export { NotFound } from './NotFound';
+export { Navigation } from './Navigation';
