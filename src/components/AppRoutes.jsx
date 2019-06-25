@@ -7,6 +7,8 @@ import { NotFound, Navigation } from 'components';
 
 import { routes } from 'config';
 
+import './AppRoutes.scss';
+
 export const AppRoutes = () => (
   <div>
     <Navigation />
