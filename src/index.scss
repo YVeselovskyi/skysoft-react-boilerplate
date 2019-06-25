@@ -17,15 +17,18 @@ body {
   color: #fff;
   padding: 8px 0;
   width: 100%;
+
   .header-item {
     display: flex;
     justify-content: space-around;
     height: 35px;
+
     .react-link {
       display: flex;
       align-items: center;
       color: #fff;
       text-decoration: none;
+
       img {
         max-height: 100%;
       }
@@ -38,11 +41,13 @@ body {
   margin: 0;
   padding: 0;
   list-style: none;
+
   li {
     flex: 1 1 auto;
     margin: 0;
     text-align: center;
     white-space: nowrap;
+
     a {
       border: 0;
       color: #a8a9ac;
@@ -52,6 +57,7 @@ body {
       margin: 0;
       padding: 6px 10px;
       text-decoration: none;
+
       &:hover {
         color: #fff;
       }
