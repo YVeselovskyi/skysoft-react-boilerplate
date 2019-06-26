@@ -4,7 +4,7 @@ import { setCarsList } from './store/cars/cars.actions';
 
 export const Cars = () => {
   const [data, dispatch] = useReducer(carsReducer, initialState);
-
+  console.log(data);
   useEffect(() => {
     setCarsList()(dispatch);
   }, []);
