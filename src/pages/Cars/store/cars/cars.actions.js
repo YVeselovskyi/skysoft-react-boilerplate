@@ -8,9 +8,9 @@ const prefix = { prefix: '[CARS] ' };
 
 export const carsActions = keyManager(types, prefix);
 
-export const setCarsList = () => dispatch => {
-  dispatch({
+export const setCarsList = () => {
+  return {
     type: carsActions.SET_CARS_LIST,
     payload: ['Porsche', 'BMW', 'Mitsubishi'],
-  });
+  };
 };

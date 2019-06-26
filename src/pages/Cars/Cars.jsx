@@ -1,19 +1,26 @@
-import React, { useReducer, useEffect } from 'react';
-import { carsReducer, initialState } from './store/cars/cars.reducer';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { setCarsList } from './store/cars/cars.actions';
+import { carsSelector } from './store/cars/cars.selector';
 
-export const Cars = () => {
-  const [data, dispatch] = useReducer(carsReducer, initialState);
-  console.log(data);
+const CarsComponent = ({ carsList, setCars }) => {
   useEffect(() => {
-    setCarsList()(dispatch);
-  }, []);
-
+    setCars();
+  }, [setCars]);
   return (
     <div>
-      {data.carsList.map((car, index) => (
+      {carsList.map((car, index) => (
         <p key={`car-${index}`}>{car}</p>
       ))}
     </div>
   );
 };
+
+const mapStateToProps = state => ({
+  carsList: carsSelector.carsList(state),
+});
+
+export const Cars = connect(
+  mapStateToProps,
+  { setCars: setCarsList },
+)(CarsComponent);
