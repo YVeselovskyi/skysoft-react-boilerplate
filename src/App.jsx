@@ -1,9 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { AppRoutes } from 'components';
+import { history } from 'core/routing/history';
 
 export const App = () => (
-  <Router>
+  <Router history={history}>
     <AppRoutes />
   </Router>
 );
