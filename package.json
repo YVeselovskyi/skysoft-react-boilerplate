@@ -6,9 +6,8 @@
     "start": "react-scripts start",
     "build": "npm run lint && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "lint:js": "eslint --fix src/ --ext .js,.jsx",
-    "lint:css": "stylelint './src/**/*.scss'",
+    "lint:css": "stylelint ./src/**/*.scss",
     "lint": "npm run lint:js && npm run lint:css",
     "eslint-check": "eslint --print-config . | eslint-config-prettier-check"
   },
