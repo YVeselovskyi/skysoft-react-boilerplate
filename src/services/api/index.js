@@ -1,3 +1,3 @@
-import { apiRequest } from 'config';
+import { apiRequest } from '../../config';
 
 export const getHome = apiRequest('/home');

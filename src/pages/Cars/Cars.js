@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { setCarsList } from './store/cars/cars.actions';
+import { bindActionCreators } from 'redux';
+
+import { setCarsList as setCarsListAction } from './store/cars/cars.actions';
+
 import { carsSelector } from './store/cars/cars.selector';
 
-const CarsComponent = ({ carsList, setCars }) => {
+const CarsComponent = ({ carsList, setCarsList }) => {
   useEffect(() => {
-    setCars();
-  }, [setCars]);
+    setCarsList();
+  }, []);
   return (
     <div>
       {carsList.map((car, index) => (
@@ -20,7 +23,15 @@ const mapStateToProps = state => ({
   carsList: carsSelector.carsList(state),
 });
 
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setCarsList: setCarsListAction,
+    },
+    dispatch,
+  );
+
 export const Cars = connect(
   mapStateToProps,
-  { setCars: setCarsList },
+  mapDispatchToProps,
 )(CarsComponent);

@@ -1,12 +1,6 @@
-import { keyManager } from 'utils/key-manager';
-
-const prefix = '[CARS] ';
-
-const types = {
-  SET_CARS_LIST: 'SET_CARS_LIST',
+export const carsActions = {
+  SET_CARS_LIST: '[CARS] SET_CARS_LIST',
 };
-
-export const carsActions = keyManager(types, prefix);
 
 export const setCarsList = () => {
   return {
