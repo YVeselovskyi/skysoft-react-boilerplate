@@ -1,11 +1,13 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import { Home, Cars } from 'pages';
-import { RedCar, GreenCar, AnotherCar } from 'pages/Cars';
-import { NotFound, Navigation } from 'components';
-
 import { routes } from 'config';
+import { Home } from 'pages/Home/Home';
+import { Cars } from 'pages/Cars/Cars';
+import { AnotherCar, GreenCar, RedCar } from 'pages/Cars/ChildComponents';
+
+import { Navigation } from '../Navigation';
+import { NotFound } from '../NotFound';
 
 import './AppRoutes.scss';
 

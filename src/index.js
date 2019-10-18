@@ -1,12 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import 'index.scss';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
 import { App } from 'App';
+import { store } from './core/store';
 
-ReactDOM.render(
-  <React.Fragment>
+import 'index.scss';
+
+render(
+  <Provider store={store}>
     <App />
-  </React.Fragment>,
+  </Provider>,
   document.getElementById('root'),
 );
 

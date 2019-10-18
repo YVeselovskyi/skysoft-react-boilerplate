@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { routes } from 'config';
 
 import './Navigation.scss';
+
 import Logo from 'assets/images/logo.svg';
 
 export const Navigation = () => (
