@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { routes } from '../config';
+import { routes } from 'config';
 
 import './Navigation.scss';
 
-import Logo from '../assets/images/logo.svg';
+import Logo from 'assets/images/logo.svg';
 
 export const Navigation = () => (
   <div className="header-wrapper">
